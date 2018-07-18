@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getFunName } from '../helpers';
 
 class StorePicker extends React.Component {
   constructor() {
     super();
-    
+
+    this.myInput = React.createRef();
     this.goToStore = this.goToStore.bind(this);
   }
 
-  myInput = React.createRef();
-
   goToStore(e) {
+    const { history } = this.props;
     e.preventDefault();
     const storeName = this.myInput.value.value;
-    this.props.history.push(`/store/${storeName}`)
+    history.push(`/store/${storeName}`);
   }
 
   render() {
@@ -39,5 +40,11 @@ class StorePicker extends React.Component {
     );
   }
 }
+
+StorePicker.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default StorePicker;
